@@ -1,0 +1,45 @@
+
+div .section{
+    display: flex;
+    flex-direction: row;
+    justify-items: end;
+}
+
+
+.list-nav-ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+}
+
+.list-nav-li{
+    font-size: large;
+    padding-right: 25px;
+    padding-top: 5px;
+
+
+}
+.list-nav-li a{
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+
+
+}
+
+.list-nav-li a:hover{
+    color: cornflowerblue;
+}
+
+#div-nav{
+    background: url('https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350');
+    height: 350px;
+
+}
+
+#form-reservate label {
+    padding: 30px;
+}

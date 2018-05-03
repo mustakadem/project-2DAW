@@ -1,0 +1,58 @@
+
+{% extends 'layout.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/app.css'%}">
+{% endblock %}
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a href="" class="navbar-brand">Rooms Magma</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="mainMenu">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        {{ user.username }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                        <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            {% else %}
+                <ul class=" navbar-nav ml-auto  ">
+                    <li class="list-nav-li nav-item"><a href="">Newsletter</a></li>
+                    <li class="list-nav-li nav-item"><a href="">Guided Tour</a></li>
+                    <li class="list-nav-li nav-item"><a href="">Reserve Space</a></li>
+                </ul>
+                    <a href="" class="btn btn-outline-secondary">Log in</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+     <div class="container-fluid d-flex flex-column justify-content-end align-content-end" id="div-nav">
+        <div class="container p-5 m-5  ">
+            <h2 class="text-white d-flex flex-row justify-content-center">Reserve your space to start working</h2>
+            <section class="d-flex flex-row justify-content-center">
+                
+                <form class="form-inline" action="{% url 'search' %}" method="post" id="form-reservate">
+                    {% csrf_token %}
+                    <label class="text-white" for="entrance">Entrance</label>
+                    <input type="date" name="entrance" id="entrance">
+                    <label class="text-white" for="outing">Outing</label>
+                    <input type="date" name="outing" id="outing">
+                    <button class="btn btn-info ml-3">Search</button>
+            </form>
+            </section>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
