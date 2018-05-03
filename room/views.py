@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.http import HttpResponse
-from django.shortcuts import render,get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Room
-
+from .forms import NewBooking
 # Create your views here.
 
 
@@ -19,5 +19,14 @@ def detail(request, room_id):
 
 def reserva(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
+    if request.method == 'POST':
+        form = NewBooking(request.POST)
 
-    return HttpResponse('Estas reservando la sala %s.' % room_id)
+        if form.is_valid():
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = NewBooking()
+
+    return render(request, 'reservate.html', {'room': room, 'form': form})

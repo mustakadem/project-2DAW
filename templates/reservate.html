@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8 h-100" style="border: 2px solid black">Datos del Espacio a Reservar</div>
+            <pre>
+                <div class="col-4 ">
+                    <section class="d-flex flex-column justify-content-end align-content-center ">
+                        <h5>Formulario de reserva</h5>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary" value="submit">Reservate</button>
+                        </form>
+                    </section>
+                 </div>
+
+            </pre>
+        </div>
+    </div>
+{% endblock %}
