@@ -1,24 +1,14 @@
 from django import forms
+from django.forms import ModelForm
 from .models import Reservation
 
 
-class NewBooking(forms.ModelForm):
+class NewBooking(ModelForm):
     class Meta:
-        model= Reservation
-        fields = [
-            'name',
-            'surnames',
-            'movil',
-        ]
-
-        labels ={
-            'name': 'Name',
-            'surnames': 'Surnames',
-            'movil': 'Movil',
+        model = Reservation
+        fields = ('date_entry', 'date_departure')
+        widgets = {
+            'date_entry': forms.DateTimeInput(attrs={'type': 'date'}),
+            'date_departure': forms.DateTimeInput(attrs={'type': 'date'})
         }
 
-        widgets= {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'surnames': forms.TextInput(attrs={'class': 'form-control'}),
-            'movil': forms.NumberInput(attrs={'class': 'form-control'}),
-        }

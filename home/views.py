@@ -4,7 +4,8 @@ from room.models import Reservation, Room
 
 
 def home(request):
-    return render(request, 'home.html')
+    rooms = Room.objects.all()
+    return render(request, 'home.html', {'rooms': rooms})
 
 
 def search(request):
