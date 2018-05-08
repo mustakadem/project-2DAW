@@ -14,23 +14,32 @@ class Room(models.Model):
     type = models.CharField(max_length=255)
     size = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     price = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    image = models.ImageField()
 
     def __str__(self):
         return self.name
 
 
-class Reservation(models.Model):
-    date_entry = models.DateTimeField()
-    date_departure = models.DateTimeField()
+class Booking(models.Model):
+    date_entry = models.DateField()
+    date_departure = models.DateField(null=True, blank=True)
+    name_event = models.CharField(max_length=255)
+    hours = models.TimeField(null=True, blank=True)
     room = models.ForeignKey(Room)
     user = models.ForeignKey(User)
 
+    def __str__(self):
+        return self.name_event
 
-class Bill(models.Model):
-    user = models.ForeignKey(User)
+
+# class Bill(models.Model):
+#     user = models.ForeignKey(User)
+#     room = models.ForeignKey(Room)
+#     booking = models.ForeignKey(Booking)
+#     date = models.DateTimeField(auto_now_add=True)
+#     subtotal = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+#     total = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+
+
+class RoomImage(models.Model):
     room = models.ForeignKey(Room)
-    reservation = models.ForeignKey(Reservation)
-    date = models.DateTimeField(auto_now_add=True)
-    subtotal = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    total = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+    url = models.CharField(default=0, max_length=6000)

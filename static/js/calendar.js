@@ -1,11 +1,10 @@
 $(function () {
    $('#calendar').fullCalendar({
    header: {
-       left:'',
-       center: 'title',
+       left:'title',
    },
        navLinks:true,
-       editable:true,
+       editable:false,
        eventLimit:true,
 
    })

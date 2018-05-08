@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from room.models import Reservation, Room
+from room.models import Booking, Room
+from django.http import JsonResponse
 
 
 def home(request):
@@ -10,9 +11,19 @@ def home(request):
 
 def search(request):
     # import pdb; pdb.set_trace()
-    dates = {
-        'outing': request.POST['outing'],
-        'entrance': request.POST['entrance']
+    search = {
+        'date': request.POST['date'],
+        'hours': request.POST['hours']
     }
-    rooms = Room.objects.exclude(reservation__date_entry__lte=request.POST['entrance'], reservation__date_departure__gte=request.POST['outing'])
-    return render(request, 'search.html', {'dates': dates, 'rooms': rooms})
+
+    if search['hours']:
+        rooms = Room.objects.exclude(booking__date_entry=search['date'], booking__hours=search['hours'])
+    else:
+        rooms = Room.objects.exclude(booking__date_entry=search['date'], booking__date_departure=search['date'])
+
+    return render(request, 'search.html', {'dates': search, 'rooms': rooms})
+
+
+def calendar(request):
+    events = Booking.objects.all()
+    return JsonResponse(events, safe=False)
