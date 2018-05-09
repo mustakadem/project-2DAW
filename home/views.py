@@ -1,9 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from room.models import Booking, Room
-from django.http import JsonResponse
-from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from .serializers import BookingSerializer
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import permission_classes
+from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework import mixins
+from rest_framework import generics
+
 
 def home(request):
     rooms = Room.objects.all()
@@ -25,8 +32,9 @@ def search(request):
     return render(request, 'search.html', {'dates': search, 'rooms': rooms})
 
 
-@csrf_exempt
-def calendar(request):
-    events = Booking.objects.all()
-    data = serializers.serialize('json', events)
-    return JsonResponse(data, safe=False)
+@permission_classes((permissions.AllowAny,))
+class Events(generics.ListCreateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
+

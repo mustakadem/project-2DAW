@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^rooms/', include('room.urls')),
     url(r'^home/', include('home.urls')),
     url(r'^logout/', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^events/', views.calendar),
     url(r'', views.home, name='home'),
     url(r'^api-auth/', include('rest_framework.urls')),
 ]

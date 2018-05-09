@@ -20,15 +20,15 @@ class Room(models.Model):
 
 
 class Booking(models.Model):
-    date_entry = models.DateField()
-    date_departure = models.DateField(null=True, blank=True)
-    name_event = models.CharField(max_length=255)
+    start = models.DateTimeField()
+    end = models.DateTimeField(null=True, blank=True)
+    title = models.CharField(max_length=255)
     hours = models.TimeField(null=True, blank=True)
     room = models.ForeignKey(Room)
     user = models.ForeignKey(User)
 
     def __str__(self):
-        return self.name_event
+        return self.title
 
 
 # class Bill(models.Model):

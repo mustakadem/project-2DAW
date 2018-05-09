@@ -24,12 +24,12 @@ def reserva(request, room_id):
         form = NewBooking(request.POST)
 
         if form.is_valid():
-            date_entry = request.POST['date_entry']
+            date_entry = request.POST['start']
             if request.POST['hours']:
                 hours = request.POST['hours']
-                r = Booking(name_event=request.POST['name_event'], date_entry=date_entry, hours=hours, room=room, user=request.user)
+                r = Booking(title=request.POST['title'], start=date_entry, hours=hours, room=room, user=request.user)
             else:
-                r = Booking(name_event=request.POST['name_event'], date_entry=date_entry, date_departure=date_entry, room=room, user=request.user)
+                r = Booking(title=request.POST['title'], start=date_entry, end=date_entry, room=room, user=request.user)
 
             r.save()
 
