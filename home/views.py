@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from room.models import Booking, Room
 from django.http import JsonResponse
-
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     rooms = Room.objects.all()
@@ -24,6 +25,8 @@ def search(request):
     return render(request, 'search.html', {'dates': search, 'rooms': rooms})
 
 
+@csrf_exempt
 def calendar(request):
     events = Booking.objects.all()
-    return JsonResponse(events, safe=False)
+    data = serializers.serialize('json', events)
+    return JsonResponse(data, safe=False)
