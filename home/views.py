@@ -25,7 +25,7 @@ def search(request):
     }
 
     if search['hours']:
-        rooms = Room.objects.exclude(booking__date_entry=search['date'], booking__hours=search['hours'])
+        rooms = Room.objects.exclude(booking__date_entry=search['date'], booking__start_time=search['hours'])
     else:
         rooms = Room.objects.exclude(booking__date_entry=search['date'], booking__date_departure=search['date'])
 

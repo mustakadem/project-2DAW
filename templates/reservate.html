@@ -55,13 +55,14 @@
             </div>
             <pre>
                 <div class="col-4 position-fixed ">
-                    <section class="d-flex flex-column justify-content-end align-content-center ">
+                    <section class="d-flex flex-column align-content-center">
                         <h5 class="text-center">Formulario de reserva</h5>
                         <form method="post">
                             {% csrf_token %}
-                            {{ form.as_p }}
+                            {{ form }}
                             <button type="submit" class="btn btn-primary" value="submit">Reservate</button>
                         </form>
+
                     </section>
                  </div>
             </pre>

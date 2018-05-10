@@ -23,7 +23,8 @@ class Booking(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField(null=True, blank=True)
     title = models.CharField(max_length=255)
-    hours = models.TimeField(null=True, blank=True)
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
     room = models.ForeignKey(Room)
     user = models.ForeignKey(User)
 
