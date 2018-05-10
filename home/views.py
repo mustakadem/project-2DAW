@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from room.models import Booking, Room
@@ -24,12 +26,15 @@ def search(request):
         'hours': request.POST['hours']
     }
 
-    if search['hours']:
-        rooms = Room.objects.exclude(booking__date_entry=search['date'], booking__start_time=search['hours'])
-    else:
-        rooms = Room.objects.exclude(booking__date_entry=search['date'], booking__date_departure=search['date'])
+    time = search['date']+" "+search['hours']+":00"
+    time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
 
-    return render(request, 'search.html', {'dates': search, 'rooms': rooms})
+    if search['hours']:
+        rooms = Room.objects.exclude(booking__start=time)
+    else:
+        rooms = Room.objects.exclude(booking__start=search['date'], booking__date_departure=search['date'])
+
+    return render(request, 'search.html', {'date': time.strftime("%d-%m-%Y %H:%M") , 'rooms': rooms})
 
 
 @permission_classes((permissions.AllowAny,))

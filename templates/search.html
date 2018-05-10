@@ -5,8 +5,8 @@
         <div class="row">
             <div class="border border-right">
                 <div class="container-fluid w-100 mb-4 p-2" style="background-color: #6c757d">
-                    <p class="h6">mostrando <strong>x</strong> salas disponibles en las fechas
-                        <strong>{{ dates.entrance }}</strong> - <strong>{{ dates.outing }}</strong></p>
+                    <p class="h6">mostrando <strong>{{ rooms.count }}</strong> salas disponibles el:
+                        <strong>{{ date }}</strong></p>
                 </div>
                 {% for room in rooms %}
                     <div class="col">
