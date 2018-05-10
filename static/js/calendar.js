@@ -1,8 +1,8 @@
 $(function () {
    $('#calendar').fullCalendar({
-   header: {
-       left:'title',
-   },
+       headers:{
+
+       },
        navLinks:true,
        editable:false,
        eventLimit:true,

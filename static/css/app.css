@@ -43,3 +43,13 @@ div .section{
 #form-reservate label {
     padding: 30px;
 }
+
+#card-home{
+    transition: all 0.3s ease;
+}
+
+#card-home:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1)
+}
