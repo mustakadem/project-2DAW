@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from room.models import Booking, Room
 from django.views.decorators.csrf import csrf_exempt
@@ -16,7 +16,7 @@ from rest_framework import generics
 
 def home(request):
     rooms = Room.objects.all()
-    return render(request, 'home.html', {'rooms': rooms})
+    return render(request, 'home.html', {'rooms': rooms,})
 
 
 def search(request):
@@ -26,20 +26,30 @@ def search(request):
         'hours': request.POST['hours']
     }
 
-    time = search['date']+" "+search['hours']+":00"
-    time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
-
-    if search['hours']:
-        rooms = Room.objects.exclude(booking__start=time)
+    if search['date']:
+        time = search['date'] + " 00:00:00"
+        time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
+        if time > datetime.today():
+            if search['hours']:
+                time = search['date'] + " " + search['hours'] + ":00"
+                time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
+                rooms = Room.objects.exclude(booking__start=time)
+            else:
+                rooms = Room.objects.exclude(booking__start=search['date'], booking__end=search['date'])
+        else:
+            return redirect('home')
     else:
-        rooms = Room.objects.exclude(booking__start=search['date'], booking__date_departure=search['date'])
+        return redirect('home')
 
-    return render(request, 'search.html', {'date': time.strftime("%d-%m-%Y %H:%M") , 'rooms': rooms})
+    return render(request, 'search.html', {'date': time.strftime("%d-%m-%Y %H:%M"), 'rooms': rooms})
+
+
+@csrf_exempt
+def form_reservate(request):
+    return 'hi'
 
 
 @permission_classes((permissions.AllowAny,))
 class Events(generics.ListCreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-
-

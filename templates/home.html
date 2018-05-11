@@ -51,6 +51,9 @@
                     <input type="time" class="form-control" name="hours" id="hours">
                     <button class="btn btn-info ml-3">Search</button>
                 </form>
+                {% if context %}
+                <p class="text-danger">{{ context }}</p>
+                {% endif %}
             </section>
 
         </div>
