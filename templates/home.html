@@ -23,7 +23,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                                 <a href="" class="dropdown-item">Your Bookings </a>
                                <div class="dropdown-divider"></div>
-                                <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                                <a href="{% url 'auth_logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -33,7 +33,7 @@
                         <li class="list-nav-li nav-item"><a href="">Guided Tour</a></li>
                         <li class="list-nav-li nav-item"><a href="">Reserve Space</a></li>
                     </ul>
-                    <a href="" class="btn btn-outline-secondary">Log in</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary">Log in</a>
                 {% endif %}
             </div>
         </div>
@@ -47,7 +47,7 @@
                     {% csrf_token %}
                     <label class="text-white" for="date">Day</label>
                     <input type="date" class="form-control" name="date" id="date">
-                    <label class="text-white" for="hours">Hours</label>
+                    <label class="text-white" for="hours">Time Entry</label>
                     <input type="time" class="form-control" name="hours" id="hours">
                     <button class="btn btn-info ml-3">Search</button>
                 </form>
@@ -64,7 +64,7 @@
     <div class="container-fluid p-4 bg-light ">
         <div class="row h-100">
             {% for room in rooms %}
-            <div class="col-xs-4 col-md-3     d-flex flex-row justify-content-center align-content-center" id="card-home">
+            <div class="col-xs-4 col-md-3 pb-4     d-flex flex-row justify-content-center align-content-center" id="card-home">
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="{% static 'img/8-sala-de-conferencias-in-zalacain.jpg' %}"
@@ -113,5 +113,5 @@
 
 {% block js %}
 
-    <script src="{% static 'js/calendar.js' %}"></script>
+    <script src="{% static 'js/calendarHome.js' %}"></script>
 {% endblock %}

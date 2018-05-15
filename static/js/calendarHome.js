@@ -3,9 +3,9 @@
         $('#calendar').fullCalendar({
             header: {left: 'title  month,'},
             navLinks: true,
-            editable: false,
+            editable: false,    
             eventLimit: true,
-            events: 'http://127.0.0.1:8000/home/events/',
+            events: 'http://127.0.0.1:8000/rooms/events/',
             eventClick: function (calEvent, jsEvent, view) {
                 alert(calEvent.start);
             },
