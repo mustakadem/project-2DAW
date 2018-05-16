@@ -3,11 +3,12 @@
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <link rel="stylesheet" href="{% static 'css/fullcalendar.min.css' %}">
+
 {% endblock %}
 {% block nav %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="" class="navbar-brand">Rooms Magma</a>
+            <a href="{% url 'home' %}" class="navbar-brand">Rooms Magma</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
                     aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,7 +23,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                                 <a href="" class="dropdown-item">Your Bookings </a>
-                               <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div>
                                 <a href="{% url 'auth_logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -38,21 +39,27 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid d-flex flex-column justify-content-end align-content-end" id="div-nav">
+    <div class="container-fluid d-flex flex-column justify-content-md-center align-content-md-center" id="div-nav">
         <div class="container p-5 m-5  ">
             <h2 class="text-white d-flex flex-row justify-content-center">Reserve your space to start working</h2>
-            <section class="d-flex flex-row justify-content-center">
-
-                <form class="form-inline" action="{% url 'search' %}" method="post" id="form-reservate">
+            <section class="d-flex flex-row justify-content-md-center">
+                <form class="form-inline " action="{% url 'search' %}" method="post" id="form-reservate">
                     {% csrf_token %}
+
+                    {#                    <div class="container">#}
+                    {#                        <div class="row">#}
+                    {#                            <div class='col-sm-12'>#}
+                    {#                                <input type='text' class="form-control" id='datetimepickerD'/>#}
+                    {#                            </div>#}
                     <label class="text-white" for="date">Day</label>
                     <input type="date" class="form-control" name="date" id="date">
                     <label class="text-white" for="hours">Time Entry</label>
                     <input type="time" class="form-control" name="hours" id="hours">
                     <button class="btn btn-info ml-3">Search</button>
+
                 </form>
                 {% if context %}
-                <p class="text-danger">{{ context }}</p>
+                    <p class="text-danger">{{ context }}</p>
                 {% endif %}
             </section>
 
@@ -63,51 +70,58 @@
 {% block content %}
     <div class="container-fluid p-4 bg-light ">
         <div class="row h-100">
+            {% if date %}
+                <div class="container-fluid w-100 mb-4 p-2" style="background-color: rgba(104,180,178,0.26)">
+                    <p class="h6 text-center"><strong>{{ rooms.count }}</strong> salas disponibles el
+                        <strong>{{ date }}</strong></p>
+                </div>
+            {% endif %}
             {% for room in rooms %}
-            <div class="col-xs-4 col-md-3 pb-4     d-flex flex-row justify-content-center align-content-center" id="card-home">
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="{% static 'img/8-sala-de-conferencias-in-zalacain.jpg' %}"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title text-center"> {{ room.name }}</h5>
-                            <p class="card-text text-center">{{ room.features }}</p>
-                            <p>Size: <strong>{{ room.size }}</strong> </p>
-                            <a href="{% url 'reservation' room_id=room.id %}" class="btn btn-primary">Reservate</a>
+                <div class="col-xs-4 col-md-3 pb-4     d-flex flex-row justify-content-center align-content-center"
+                     id="card-home">
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="{% static 'img/8-sala-de-conferencias-in-zalacain.jpg' %}"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title text-center"> {{ room.name }}</h5>
+                                <p class="card-text text-center">{{ room.features }}</p>
+                                <p>Size: <strong>{{ room.size }}</strong></p>
+                                <a href="{% url 'reservation' room_id=room.id %}" class="btn btn-primary">Reservate</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
-    <div class="col-10  m-5 p-5">
+        <div class="col-10  m-5 p-5">
             <div id="calendar"></div>
-    </div>
+        </div>
 
-    <div class="row">
-        <div class="container mt-5 pt-5bg-white" style="border: 1px solid burlywood">
-            <h2 class="text-center">Filosofia Magma</h2>
+        <div class="row">
+            <div class="container mt-5 pt-5bg-white" style="border: 1px solid burlywood">
+                <h2 class="text-center">Filosofia Magma</h2>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="container mt-5 pt-5bg-white" style="border: 1px solid burlywood">
-            <h2 class="text-center">¿Newsletter ultima semana?</h2>
+        <div class="row">
+            <div class="container mt-5 pt-5bg-white" style="border: 1px solid burlywood">
+                <h2 class="text-center">¿Newsletter ultima semana?</h2>
+            </div>
         </div>
-    </div>
-      <div class="row">
-        <div class="container mt-5 pt-5bg-white" style="border: 1px solid burlywood">
-            <h2 class="text-center">¿Mas datos?</h2>
+        <div class="row">
+            <div class="container mt-5 pt-5bg-white" style="border: 1px solid burlywood">
+                <h2 class="text-center">¿Mas datos?</h2>
+            </div>
         </div>
-    </div>
     </div>
     <footer class="bg-dark h-100">
-    <div class="container-fluid ">
-        <ul class="navbar-nav ml-auto">
-            <li class="text-white">hola</li>
-            <li class="text-white">hola</li>
-            <li class="text-white">hola</li>
-        </ul>
-    </div>
+        <div class="container-fluid ">
+            <ul class="navbar-nav ml-auto">
+                <li class="text-white">hola</li>
+                <li class="text-white">hola</li>
+                <li class="text-white">hola</li>
+            </ul>
+        </div>
     </footer>
 {% endblock %}
 

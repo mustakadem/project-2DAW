@@ -16,11 +16,11 @@ def home(request):
 
 def search(request):
     # import pdb; pdb.set_trace()
+
     search = {
         'date': request.POST['date'],
         'hours': request.POST['hours']
     }
-
     if search['date']:
         time = search['date'] + " 00:00:00"
         time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
@@ -36,7 +36,7 @@ def search(request):
     else:
         return redirect('home')
 
-    return render(request, 'search.html', {'date': time.strftime("%d-%m-%Y %H:%M"), 'rooms': rooms})
+    return render(request, 'home.html', {'date': time.strftime("%d-%m-%Y %H:%M"), 'rooms': rooms})
 
 
 @csrf_exempt
