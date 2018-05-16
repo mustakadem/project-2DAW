@@ -45,12 +45,6 @@
             <section class="d-flex flex-row justify-content-md-center">
                 <form class="form-inline " action="{% url 'search' %}" method="post" id="form-reservate">
                     {% csrf_token %}
-
-                    {#                    <div class="container">#}
-                    {#                        <div class="row">#}
-                    {#                            <div class='col-sm-12'>#}
-                    {#                                <input type='text' class="form-control" id='datetimepickerD'/>#}
-                    {#                            </div>#}
                     <label class="text-white" for="date">Day</label>
                     <input type="date" class="form-control" name="date" id="date">
                     <label class="text-white" for="hours">Time Entry</label>
@@ -114,15 +108,7 @@
             </div>
         </div>
     </div>
-    <footer class="bg-dark h-100">
-        <div class="container-fluid ">
-            <ul class="navbar-nav ml-auto">
-                <li class="text-white">hola</li>
-                <li class="text-white">hola</li>
-                <li class="text-white">hola</li>
-            </ul>
-        </div>
-    </footer>
+
 {% endblock %}
 
 {% block js %}

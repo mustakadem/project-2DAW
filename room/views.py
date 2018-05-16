@@ -11,18 +11,9 @@ from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from room.serializers import BookingSerializer
+from room.serializers import BookingSerializer, RoomSerializer
 from .models import Room, Booking
 from .forms import NewBooking
-
-
-def index(request):
-    rooms = Room.objects.all()
-    return render(request, 'layout.html', {'rooms': rooms})
-
-
-def detail(request, room_id):
-    return HttpResponse("estas en la sala %s." % room_id)
 
 
 @login_required
@@ -71,6 +62,7 @@ class EventsList(generics.ListCreateAPIView):
     serializer_class = BookingSerializer
 
 
+@permission_classes((permissions.AllowAny,))
 class EventsDetail(APIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
@@ -84,4 +76,21 @@ class EventsDetail(APIView):
     def get(self, request, pk, format=None):
         booking = self.get_object(pk)
         serializer = BookingSerializer(booking)
+        return Response(serializer.data)
+
+
+@permission_classes((permissions.AllowAny,))
+class RoomDetail(APIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+    def get_object(self, pk):
+        try:
+            return Room.objects.get(pk=pk)
+        except Room.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        room = self.get_object(pk)
+        serializer = RoomSerializer(room)
         return Response(serializer.data)
