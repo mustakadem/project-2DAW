@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'registration',
     'rest_framework',
+    'widget_tweaks',
     'room',
 ]
 
