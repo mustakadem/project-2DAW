@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/fullcalendar.min.css' %}">
 
@@ -98,7 +99,8 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="row pl-3">
-                                              <i class="fas fa-utensils"></i> <h5 class="text-center pl-2">Food and Drink</h5>
+                                                <i class="fas fa-utensils"></i> <h5 class="text-center pl-2">Food and
+                                                Drink</h5>
                                             </div>
                                             <ul class="list-group">
                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -116,8 +118,8 @@
                                             </ul>
                                         </div>
                                         <div class="col">
-                                             <div class="row pl-3 ">
-                                             <i class="fas fa-plug"></i><h5 class="text-center pl-2">Technology</h5>
+                                            <div class="row pl-3 ">
+                                                <i class="fas fa-plug"></i><h5 class="text-center pl-2">Technology</h5>
                                             </div>
                                             <ul class="list-group">
                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -142,18 +144,20 @@
                     </div>
                 </div>
             </div>
-            <div class=" col-4 align-content-md-center pt-5">
+            <div class=" col-4 align-content-md-center pt-5 pb-5">
+
+                <h3 class=" text-primary pt-5">Bookings</h3>
+                <div id="calendar" class="pb-5"></div>
+
                 <input type="hidden" id="valueRoom" value="{{ room.id }}">
                 <h3 class=" text-primary">Complete your booking</h3>
-                <pre>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form }}
-                            <button type="submit" class="btn btn-primary" value="submit">Reservate</button>
-                        </form>
-                    </pre>
-                <h3 class=" text-primary">Bookings</h3>
-                <div id="calendar" class="pb-5"></div>
+
+                <form method="post" novalidate >
+                    {% csrf_token %}
+                   {% include 'includes/bootstrap_form.html' with form=form %}
+                    <button type="submit" class="btn btn-primary text-left" value="submit">Reservate</button>
+                </form>
+
             </div>
 
         </div>

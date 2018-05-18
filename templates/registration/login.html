@@ -8,18 +8,10 @@
 <div class="row justify-content-md-center">
     <div class="jumbotron mt-4 w-50">
     <h2 class="text-center pb-3">Login</h2>
-    <form method="post" class="text-center">
+    <form method="post" class="text-center" novalidate>
         {% csrf_token %}
-        <div class="form-group">
-            <label>Username:</label>
-            {{ form.username }}
-        </div>
-        <div class="form-group">
-            <label>Password:</label>
-            {{ form.password }}
-        </div>
+        {% include 'includes/bootstrap_form.html' with form=form %}
         <button type="submit" class="btn btn-primary">Login</button>
-        {{ form.errors }}
     </form>
 <p><small>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</small></p>
 <small>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</small>
