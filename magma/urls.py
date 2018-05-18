@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^rooms/', include('room.urls')),
     url(r'^home/', include('home.urls')),
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^login/',auth_views.LoginView.as_view(),name='login'),
+    url(r'^accounts/', include('registration.backends.model_activation.urls')),
     url(r'', views.home, name='home'),
 ]
