@@ -3,6 +3,8 @@ $(function () {
 let id_room = $("#valueRoom").val();
 
 $("#calendar").fullCalendar({
+    header: {left: 'month,'},
+    height: 600,
     navLinks: true,
     editable: false,
     eventLimit: true,

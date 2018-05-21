@@ -5,7 +5,7 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework import permissions, generics
 from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
@@ -30,7 +30,7 @@ def reserva(request, room_id):
                 if start_time < end_time:
                     date_depature = dates(end_time, request.POST['start'])
                     date_entry = dates(start_time, request.POST['start'])
-                    if Booking.objects.filter(room=room, start__gte=date_entry, end__lte=date_depature).exists():
+                    if Booking.objects.filter(room=room, start__lte=date_entry, end__gte=date_depature).exists():
                         form.add_error(None, "Hay una reserva en ese tramo horario en esta sala")
                         return render(request, 'reservate.html', {'room': room, 'form': form})
                     variance = date_depature - date_entry
@@ -38,6 +38,8 @@ def reserva(request, room_id):
                                 end_time=end_time, room=room, user=request.user)
                     r.save()
                     return HttpResponseRedirect('/')
+                else:
+                    form.add_error(None, "La hora de salida debe ser mayor a la de entrada")
             else:
                 r = Booking(title=request.POST['title'], start=request.POST['start'], end=request.POST['start'],
                             room=room, user=request.user)
@@ -48,6 +50,11 @@ def reserva(request, room_id):
         form = NewBooking()
 
     return render(request, 'reservate.html', {'room': room, 'form': form})
+
+
+def delete(request, room_id, book_id):
+    Booking.objects.filter(room_id=room_id, id=book_id).delete()
+    return redirect('home')
 
 
 def dates(hours, day):
