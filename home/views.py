@@ -7,11 +7,13 @@ from room.serializers import BookingSerializer
 from rest_framework.decorators import permission_classes
 from rest_framework import permissions
 from rest_framework import generics
+from django.views.generic import ListView
 
 
-def home(request):
-    rooms = Room.objects.all()
-    return render(request, 'home.html', {'rooms': rooms, })
+class Home(ListView):
+    model = Room
+    context_object_name = 'rooms'
+    template_name = 'home.html'
 
 
 def search(request):
