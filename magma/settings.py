@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'widget_tweaks',
     'room',
+    'home'
 ]
 
 SITE_ID = 1
@@ -167,6 +168,4 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
-INVITE_MODE = True
-INVITATIONS_INVITATION_ONLY = True
 ACCOUNT_ACTIVATION_DAYS = 3
