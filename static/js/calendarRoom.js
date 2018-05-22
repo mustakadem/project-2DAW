@@ -9,6 +9,7 @@ $("#calendar").fullCalendar({
     editable: false,
     eventLimit: true,
     timeFormat: 'H:mm',
+    selectable: true,
     events: function (start, end, timezone, callback) {
 
              $.ajax({
@@ -31,6 +32,10 @@ $("#calendar").fullCalendar({
                      callback(events);
                }
              });
-            }
+            },
+    dayClick: function(date, jsEvent, view){
+            $("#id_start").val(date.format());
+    },
+
 });
 });
