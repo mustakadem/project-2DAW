@@ -40,4 +40,7 @@ class Booking(models.Model):
 
 class RoomImage(models.Model):
     room = models.ForeignKey(Room)
-    url = models.CharField(default=0, max_length=6000)
+    image = models.ImageField(upload_to='rooms/images/')
+
+    def __unicode__(self):
+        return str(self.image)

@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from .models import Room, Booking
+from .models import Room, Booking, RoomImage
 
 admin.site.register(Room)
 
 admin.site.register(Booking)
+
+admin.site.register(RoomImage)
