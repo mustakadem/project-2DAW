@@ -45,7 +45,9 @@
                         $('#divMsgError').removeClass('alert-danger');
                         $('#divMsgError').addClass('alert alert-success');
                         $('#msgError').text(json.result);
-
+                        $("#addEventModal").modal('hide');
+                        toastr.success(json.result);
+                        $('#calendar').fullCalendar('refetchEvents')
                     }
                 },
                 error: function (error) {
