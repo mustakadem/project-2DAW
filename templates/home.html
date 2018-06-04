@@ -24,7 +24,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                                 <a href="" class="dropdown-item">Your Bookings </a>
-                                                        <a href="{% url 'auth_password_change' %}" class="dropdown-item">Change password</a>
+                                <a href="{% url 'auth_password_change' %}" class="dropdown-item">Change password</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{% url 'auth_logout' %}" class="dropdown-item">Logout</a>
                             </div>
@@ -41,7 +41,7 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid d-flex flex-column justify-content-md-center align-content-md-center  div-nav" >
+    <div class="container-fluid d-flex flex-column justify-content-md-center align-content-md-center  div-nav">
         <div class="container p-5 m-5  ">
             <h2 class="text-white d-flex flex-row justify-content-center">Reserve your space to start working</h2>
             <section class="d-flex flex-row justify-content-md-center">
@@ -77,8 +77,33 @@
                      id="card-home">
                     <div class="col">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="{% static 'media/8-sala-de-conferencias-in-zalacain.jpg' %}"
-                                 alt="Card image cap">
+                            <div id="carousel{{ room.name }}" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    {% for image in room.roomimage_set.all %}
+                                        <li data-target="#carousel{{ room.name }}Indicators"
+                                            data-slide-to="{{ forloop.counter }}"
+                                            {% if forloop.first %}class="active"{% endif %}></li>
+                                    {% endfor %}
+                                </ol>
+                                <div class="carousel-inner">
+                                    {% for image in room.roomimage_set.all %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img class="d-block w-100"
+                                                 src="{% static image %}" width="200" height="200" alt="First slide">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel{{ room.name }}" role="button"
+                                   data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel{{ room.name }}" role="button"
+                                   data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center"> {{ room.name }}</h5>
                                 <p class="card-text text-center">{{ room.features }}</p>
@@ -111,7 +136,7 @@
         </div>
     </div>
     <input type="hidden" value="{{ user.id }}" id="idUser">
-{% include 'includes/bootstrap_modal_event.html' %}
+    {% include 'includes/bootstrap_modal_event.html' %}
     {% include 'includes/bootstrap_modal_addEvent.html' %}
 {% endblock %}
 
