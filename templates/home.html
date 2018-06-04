@@ -6,7 +6,7 @@
 
 {% endblock %}
 {% block nav %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent  div-nav">
         <div class="container-fluid">
             <a href="{% url 'home' %}" class="navbar-brand">Rooms Magma</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
@@ -40,7 +40,7 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid d-flex flex-column justify-content-md-center align-content-md-center" id="div-nav">
+    <div class="container-fluid d-flex flex-column justify-content-md-center align-content-md-center  div-nav" >
         <div class="container p-5 m-5  ">
             <h2 class="text-white d-flex flex-row justify-content-center">Reserve your space to start working</h2>
             <section class="d-flex flex-row justify-content-md-center">
@@ -111,8 +111,10 @@
     </div>
     <input type="hidden" value="{{ user.id }}" id="idUser">
 {% include 'includes/bootstrap_modal_event.html' %}
+    {% include 'includes/bootstrap_modal_addEvent.html' %}
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'js/calendarHome.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 {% endblock %}

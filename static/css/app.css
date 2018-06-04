@@ -6,6 +6,7 @@ div .section{
 }
 
 
+
 .list-nav-ul{
     display: flex;
     flex-direction: row;
@@ -34,9 +35,9 @@ div .section{
     color: cornflowerblue;
 }
 
-#div-nav{
-    background: url('https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350');
-    height: 350px;
+.div-nav{
+    background: url('https://www.phyramid.com/images/blog/making-phyramid-coms-procedurally-rendered-3d-header/header-background-indexed.png');
+
 
 }
 

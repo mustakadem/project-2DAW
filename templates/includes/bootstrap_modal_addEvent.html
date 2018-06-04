@@ -1,0 +1,45 @@
+<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Event Day: <strong id="day_event"></strong></h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                <div  id="divMsgError" role="alert">
+                   <strong id="msgError"></strong>
+                </div>
+                <input type="hidden" name="user" id="user" value="{{ user.id }}">
+                <div class="form-group">
+                    <label for="title" class="form-control text-white bg-primary">Title:</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+                <div class="form-group">
+                    <label for="room" class="form-control text-white bg-primary">Room:</label>
+                    <select name="room" class="form-control" id="room">
+                        <option value="select">Select</option>
+                        {% for room in rooms %}
+                            <option value="{{ room.id }}">{{ room.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="start_time" class="form-control text-white bg-primary">Start:</label>
+                    <input type="time" class="form-control" id="start_time" name="start_time">
+                </div>
+                <div class="form-group">
+                    <label for="end_time" class="form-control text-white bg-primary ">End:</label>
+                    <input type="time" class="form-control" id="end_time" name="end_time">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="addEvent">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

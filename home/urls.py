@@ -1,11 +1,9 @@
 from django.conf.urls import url
 from . import views
-from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
     url(r'^search/$', views.search, name='search'),
-    url(r'^form/reservate/', views.form_reservate)
+    url(r'^reservate/', views.reservate_calendar)
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
