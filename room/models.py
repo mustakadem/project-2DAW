@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 
 class Room(models.Model):
-
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=255)
 
@@ -52,3 +51,6 @@ class Features(models.Model):
     wifi = models.BooleanField(default=False)
     sound_system = models.BooleanField(default=False)
     videoConference_equipament = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.room.name

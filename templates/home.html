@@ -79,14 +79,14 @@
                         <div class="card" style="width: 18rem;">
                             <div id="carousel{{ room.name }}" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    {% for image in room.roomimage_set.all %}
+                                    {% for image in room.image_set.all %}
                                         <li data-target="#carousel{{ room.name }}Indicators"
                                             data-slide-to="{{ forloop.counter }}"
                                             {% if forloop.first %}class="active"{% endif %}></li>
                                     {% endfor %}
                                 </ol>
                                 <div class="carousel-inner">
-                                    {% for image in room.roomimage_set.all %}
+                                    {% for image in room.image_set.all %}
                                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                             <img class="d-block w-100"
                                                  src="{% static image %}" width="200" height="200" alt="First slide">
@@ -107,7 +107,7 @@
                             <div class="card-body">
                                 <h5 class="card-title text-center"> {{ room.name }}</h5>
                                 <p class="card-text text-center">{{ room.features }}</p>
-                                <p>Size: <strong>{{ room.size }}</strong></p>
+                                <p>{{ room.description }}</p>
                                 <a href="{% url 'reservation' room_id=room.id %}" class="btn btn-primary">Reservate</a>
                             </div>
                         </div>
