@@ -33,7 +33,6 @@ def reserva(request, room_id):
                     if Booking.objects.filter(room=room, start__lte=date_entry, end__gte=date_depature).exists():
                         form.add_error(None, "Hay una reserva en ese tramo horario en esta sala")
                         return render(request, 'reservate.html', {'room': room, 'form': form})
-                    variance = date_depature - date_entry
                     r = Booking(title=request.POST['title'], start=date_entry, end=date_depature, start_time=start_time,
                                 end_time=end_time, room=room, user=request.user)
                     r.save()

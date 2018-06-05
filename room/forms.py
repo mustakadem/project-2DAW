@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
-from .models import Booking, RoomImage
+from .models import Booking, Image
 from datetime import datetime, date
 import pytz
 
@@ -27,5 +27,5 @@ class NewBooking(ModelForm):
 
 class UploadImageRoomForm(forms.ModelForm):
     class Meta:
-        model = RoomImage
+        model = Image
         fields = '__all__'
