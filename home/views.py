@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import pytz
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -51,29 +52,33 @@ def reservate_calendar(request):
     response_data = {}
     start_time = request.POST['start_time']
     end_time = request.POST['end_time']
-    if start_time:
-        if start_time < end_time:
-            date_depature = dates(end_time, request.POST['start'])
-            date_entry = dates(start_time, request.POST['start'])
-            if request.POST['room'] != 'select':
-                room = get_object_or_404(Room, pk=request.POST['room'])
-                if Booking.objects.filter(room=room, start__lte=date_entry,
-                                          end__gte=date_depature).exists():
-                    response_data['error'] = 'La reserva ya existe en este tramo horario'
+    date_entry = dates(start_time, request.POST['start'], False)
+    date_today = datetime.today()
+    if datetime.strftime(date_entry, "%Y-%m-%d %H:%M:%S") > datetime.strftime(date_today, "%Y-%m-%d %H:%M:%S"):
+        if start_time:
+            if start_time < end_time:
+                date_depature = dates(end_time, request.POST['start'])
+                date_entry = dates(start_time, request.POST['start'])
+                if request.POST['room'] != 'select':
+                    room = get_object_or_404(Room, pk=request.POST['room'])
+                    if Booking.objects.filter(room=room, start__lte=date_entry,
+                                              end__gte=date_depature).exists():
+                        response_data['error'] = 'La reserva ya existe en este tramo horario'
+                    else:
+                        r = Booking(title=request.POST['title'], start=date_entry, end=date_depature, start_time=start_time,
+                                    end_time=end_time, room=room, user=request.user)
+                        r.save()
+
+                        response_data['result'] = 'Se ha creado la reserva'
                 else:
-                    r = Booking(title=request.POST['title'], start=date_entry, end=date_depature, start_time=start_time,
-                                end_time=end_time, room=room, user=request.user)
-                    r.save()
-
-                    response_data['result'] = 'Se ha creado la reserva'
+                    response_data['error'] = "Debes seleccionar una sala"
             else:
-                response_data['error'] = "Debes seleccionar una sala"
+                response_data['error'] = "La hora de salida debe ser mayor a la de entrada"
+
         else:
-            response_data['error'] = "La hora de salida debe ser mayor a la de entrada"
-
+            response_data['error'] = 'Debes seleccionar una hora'
     else:
-        response_data['error'] = 'Debes seleccionar una hora'
-
+        response_data['error'] = 'Debes seleccionar una fecha valida'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 

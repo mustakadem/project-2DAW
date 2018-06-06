@@ -51,9 +51,13 @@ def reserva(request, room_id):
     return render(request, 'reservate.html', {'room': room, 'form': form})
 
 
-def dates(hours, day):
-    hours += ":00"
-    day = day + " " + hours
+def dates(hours, day, value=True):
+    if value:
+        hours += ":00"
+        day = day + " " + hours
+    else:
+        hours = " 00:00:00"
+        day = day + " " + hours
     return datetime.strptime(day, "%Y-%m-%d %H:%M:%S")
 
 
