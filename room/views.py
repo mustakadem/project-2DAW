@@ -51,11 +51,6 @@ def reserva(request, room_id):
     return render(request, 'reservate.html', {'room': room, 'form': form})
 
 
-def delete(request, room_id, book_id):
-    Booking.objects.filter(room_id=room_id, id=book_id).delete()
-    return redirect('home')
-
-
 def dates(hours, day):
     hours += ":00"
     day = day + " " + hours

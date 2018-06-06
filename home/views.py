@@ -75,3 +75,17 @@ def reservate_calendar(request):
         response_data['error'] = 'Debes seleccionar una hora'
 
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@login_required
+def delete_calendar(request, room_id, book_id):
+
+    user_id = request.GET['user']
+    response_data = {}
+    if Booking.objects.filter(room_id=room_id, id=book_id, user_id=user_id).exists():
+        Booking.objects.filter(room_id=room_id, id=book_id, user_id=user_id).delete()
+        response_data['result'] = 'Evento Eliminado Correctamente'
+    else:
+        response_data['error'] = 'El evento no esta asociado a este usuario'
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
