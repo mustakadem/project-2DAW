@@ -1,51 +1,50 @@
 
-div .section{
+div .section {
     display: flex;
     flex-direction: row;
     justify-items: end;
 }
 
-
-
-.list-nav-ul{
+.list-nav-ul {
     display: flex;
     flex-direction: row;
     list-style: none;
 
 }
 
-.list-nav-li{
+.list-nav-li {
     font-size: large;
     padding-right: 25px;
     padding-top: 5px;
 
-
 }
-.list-nav-li a{
+
+.list-nav-li a {
     text-decoration: none;
     color: white;
     padding: 15px;
     width: 100%;
     height: 100%;
 
-
 }
 
-.list-nav-li a:hover{
+.list-nav-li a:hover {
     color: cornflowerblue;
 }
 
-.div-nav{
+.div-nav {
     background: url('https://www.phyramid.com/images/blog/making-phyramid-coms-procedurally-rendered-3d-header/header-background-indexed.png');
+}
 
-
+.footer-top {
+    background: url('https://www.phyramid.com/images/blog/making-phyramid-coms-procedurally-rendered-3d-header/header-background-indexed.png');
 }
 
 #form-reservate label {
     padding: 30px;
 }
 
-#card-home{
+#card-home {
     transition: all 0.3s ease;
 }
 
