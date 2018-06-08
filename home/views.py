@@ -1,17 +1,11 @@
 from datetime import datetime
 
-import pytz
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.utils import json
 
 from room.models import Booking, Room
-from django.views.decorators.csrf import csrf_exempt
-from room.serializers import BookingSerializer
-from rest_framework.decorators import permission_classes
-from rest_framework import permissions
-from rest_framework import generics
 from django.views.generic import ListView
 from room.views import dates
 
